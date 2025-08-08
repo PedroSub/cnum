@@ -1,4 +1,6 @@
 import math
+import numpy as np
+import matplotlib.pyplot as plt
 def is_perfect(n: int) -> bool:
     if n < 1:
         return False
@@ -41,7 +43,38 @@ def sum_of_digits(n: int) -> int:
         n//=10
     return sum
 
+A = np.array([[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9]])
+
+B = np.array([[10, 11, 12],
+              [13, 14, 15],
+              [16, 17, 18]])
+
+C = A @ B
+
+
+def plot(n: int) -> None:
+    x = np.linspace(-np.pi, np.pi, n)   # n valores entre -pi e pi
+    y_sen = np.sin(x)                   # array senos dos valores de x
+    y_cos = np.cos(x)                   # array cossenos dos valores de x
+
+    plt.plot(x, y_sen, label='seno')
+    plt.plot(x, y_cos, label='cosseno')
+    plt.xlim(-np.pi, np.pi)
+
+    plt.xlabel('Ângulo [rad]')
+    plt.ylabel('Função trigonométrica(x)')
+    plt.grid(True)
+    plt.legend()
+    plt.savefig("2/plot.png")  # Salva como imagem no ambiente
+
+    print(f'x =\n{x}')
+    print(f'y_sen =\n{y_sen}')
+    print(f'y_cos =\n{y_cos}')
+
 def main():
+
     assert is_perfect(6) == True
     assert is_perfect(7) == False
     assert is_perfect(-1) == False
@@ -58,8 +91,11 @@ def main():
         sum_of_digits(-1)
     except ValueError as error:
         assert str(error) == "O número deve ser não negativo."
-    x= is_prime(15)
-    print(x)
+    print(C)
+    print(C.shape) # Formato linha por coluna
+    print(C.size) # Quantidade de valores
+    print(len(C)) # Quantidade de linha
+    plot(35)
 
 
 if __name__ == "__main__":
