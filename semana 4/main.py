@@ -12,8 +12,34 @@ def f2(x):
 def f3(x):
     sinxx=np.sin(x**2)
     return 5*sinxx-np.exp(x/10)
-def f4(r,v,vd):
-    return  vd+r*id-v
+def f41(vd,v=30,r=1e+3):
+    vt= (300*1.380649*1e-23)/(1.60217663*1e-19)
+    i=(np.exp(vd/vt)-1)
+    return  vd+r*i-v
+def f42(vd,v=3,r=1e+3):
+    vt= (300*1.380649*1e-23)/(1.60217663*1e-19)
+    i=(np.exp(vd/vt)-1)
+    return  vd+r*i-v
+def f43(vd,v=3,r=10e+3):
+    vt= (300*1.380649*1e-23)/(1.60217663*1e-19)
+    i=(np.exp(vd/vt)-1)
+    return  vd+r*i-v
+def f44(vd,v=300e-3,r=1e+3):
+    vt= (300*1.380649*1e-23)/(1.60217663*1e-19)
+    i=(np.exp(vd/vt)-1)
+    return  vd+r*i-v
+def f45(vd,v=-300e-3,r=1e+3):
+    vt= (300*1.380649*1e-23)/(1.60217663*1e-19)
+    i=(np.exp(vd/vt)-1)
+    return  vd+r*i-v
+def f46(vd,v=-30,r=1e+3):
+    vt= (300*1.380649*1e-23)/(1.60217663*1e-19)
+    i=(np.exp(vd/vt)-1)
+    return  vd+r*i-v
+def f47(vd,v=-30,r=10e+3):
+    vt= (300*1.380649*1e-23)/(1.60217663*1e-19)
+    i=(np.exp(vd/vt)-1)
+    return  vd+r*i-v
 
 def plot(f,x1,x2, number=1):
     # Intervalo para plotar
@@ -40,13 +66,21 @@ def main():
     r, i = bissecao(f2, 0, 1, 1e-15, 4)
     print(f"raiz = {r} , i = {i}")
     print("-- Atividade 3 --")
-    plot(f3,0,3,3)
+    #plot(f3,0,3,3)
     r, i = bissecao(f3, 0.4, 0.5, 1e-5)
     print(f"raiz 1 = {r} , i = {i}")
     r, i = bissecao(f3, 1.6, 1.8, 1e-5)
     print(f"raiz 2 = {r} , i = {i}")
     r, i = bissecao(f3, 2.5, 2.7, 1e-5)
     print(f"raiz 3 = {r} , i = {i}")
+    print("-- Atividade 4 --")
+    plot(f41,-3,3,4.1)
+    plot(f42,-3,3,4.2)
+    plot(f43,-3,3,4.3)
+    plot(f44,-3,3,4.4)
+    plot(f45,-3,3,4.5)
+    plot(f46,-35,35,4.6)
+    plot(f47,-35,35,4.7)
 
 if __name__ == "__main__":
     main()
