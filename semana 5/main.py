@@ -15,7 +15,13 @@ g2 = lambda x:  np.sqrt(np.cos(x))
 f3 = lambda x: np.e**(-x**2) - 2*x
 g3 = lambda x:  (np.e**(-x**2))/2
 
-f4 = lambda x: 
+def f4(x, V, R):
+    IR = 1e-12  # corrente de saturação (A)
+    T = 300.0  # temperatura (K)
+    k = 1.38064852e-23  # constante de Boltzmann (J/K)
+    q = 1.60217662e-19  # carga do elétron (C)
+    vt = k * T / q  # tensão térmica (V)
+    return R * IR * (np.exp(x / vt) - 1) + x - V
 
 f5 = lambda x: (x*(np.cosh(500/(2*x))-1)) - 50
 g5 = lambda x:  x*(np.cosh(500/(2*x))) - 50
@@ -61,6 +67,24 @@ def main():
     print(f"raiz newton-raphson = {r}")
     r = secante(0.5, 0.4, f3)
     print(f"raiz secante = {r}")
+
+    print("-- Atividade 4 --")
+    VRs = [
+        (30, 1e3, 0, 1),
+        (3, 1e3, 0, 1),
+        (3, 1e4, 0, 1),
+        (0.3, 1e3, 0, 0.5),
+        (-0.3, 1e3, -1, 0),
+        (-30, 1e3, -40, 0),
+        (-30, 1e4, -40, 0),
+    ]
+    for V, R, a, b in VRs:
+        try:
+            f4_vrs = lambda x: f4(x, V, R)
+            r = newton_raphson(b, f4_vrs)
+            print(f"V={V} V, R={R/1e3:.0f}kΩ --> vd = {r:.3f} V")
+        except ValueError as error:
+            print(f"V={V} V, R={R/1e3:.0f}kΩ --> {error}")
 
     print("-- Atividade 5 --")
     r = pontofixo(630, g5)
