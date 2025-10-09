@@ -130,30 +130,30 @@ def main():
     print("-- Atividade 4 --")
 
     def F(x):
-        x1, x2,x3= x
+        x1, x2,x3,k= x
         return np.array(
             [
                 x1+x2+x3-1500,
-                560 + 0.3*x1 +0.25*x2+0.19*x3+
-                (x1**2)*1e-4+(x2**2)*2e-4+(x3**2)*5e-4+
-                (x1**4)*3.4e-9+(x2**3)*4.3e-7+(x3**4)*1.1e-7 ,
-                np.sin(x1) + 2.0 * x2 + 3.0 * x3 - 1,
+                0.3 + (x1)*2e-4 +(x1**3)*4*3.4e-9-k,
+                0.25+(x2)*4e-4+(x2**2)*3*4.3e-7-k,
+                0.19+(x3)*10e-4+(x3**3)*4*1.1e-7-k,
             ],
             dtype=float,
         )
 
     def J(x):
-        x1, x2,x3 = x
+        x1, x2,x3,k = x
         return np.array(
             [
-                [6.0, -2.0, np.exp(x3)],
-                [np.cos(x1), -1.0, 1.0],
-                [np.cos(x1), 2.0, 3.0],
+                [1.0, 1.0, 1.0,0],
+                [2e-4 +(x1**2)*12*3.4e-9, 0, 0,-1.0],
+                [0, 4e-4+(x2)*6*4.3e-7, 0,-1.0],
+                [0, 0, 10e-4+(x3**2)*12*1.1e-7,-1.0],
             ],
             dtype=float,
         )
 
-    x = np.array([2, 2,2], dtype=float)
+    x = np.array([400, 400,400,0], dtype=float)
     r = fixed_point(x, lambda x: G(x, F, J))
     print(r)
     r = fixed_point(x, lambda x: GN(x, F))
