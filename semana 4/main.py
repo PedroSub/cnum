@@ -53,7 +53,7 @@ def plot(f,x1,x2,d=0.1, number=1):
 
 def main():
     print("-- Atividade 1 --")
-    #plot(f1,-2,3,1)
+    plot(f1,-2,3,1)
     r, i = bissecao(f1, 1, 2, 1e-15)
     print(f"raiz = {r} , i = {i}")
     print("-- Atividade 2 --")
