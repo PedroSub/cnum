@@ -41,7 +41,10 @@ def main():
     print(f"raiz = {r} , i = {i}")
 
     print("-- Atividade 2 --")
-    A = np.array([[17, -2, -3], [-5, 21, -2], [-5, -5, 22]], dtype=float)
+    A = np.array(
+    [[17, -2, -3], 
+    [-5, 21, -2], 
+    [-5, -5, 22]], dtype=float)
     B = np.array([500, 200, 300], dtype=float)
     print("Matriz A:")
     print(A)
@@ -78,20 +81,7 @@ def main():
             ],
             dtype=float,
         )
-
-    def J(x):
-        x1, x2 = x
-        return np.array(
-            [
-                [4*x1**3 +0.06823,4*x1**3 +0.05848],
-                [- 4*x2**3 -0.05848, - 8*x2**3 -0.11696],
-            ],
-            dtype=float,
-        )
-
     x = np.array([1.0, 1.0], dtype=float)
-    r = fixed_point(x, lambda x: G(x, F, J))
-    print(r)
     r = fixed_point(x, lambda x: GN(x, F))
     print(r)
 
