@@ -68,7 +68,7 @@ def main():
     X = seidel(A, B, 100, 1e-8)
     print(X)
     I=np.sum(X)
-    print(f"Ir3=I1+I2= {I}")
+    print(f"Ir3=I1+I2= {I:.4f}")
 
     print("-- Atividade 4 --")
 
@@ -81,7 +81,20 @@ def main():
             ],
             dtype=float,
         )
+
+    def J(x):
+        x1, x2 = x
+        return np.array(
+            [
+                [4*(x1**3) +0.06823,- 4*(x2**3) -0.05848],
+                [4*(x1**3) +0.05848, - 8*(x2**3) -0.11696],
+            ],
+            dtype=float,
+        )
+
     x = np.array([1.0, 1.0], dtype=float)
+    r = fixed_point(x, lambda x: G(x, F, J))
+    print(r)
     r = fixed_point(x, lambda x: GN(x, F))
     print(r)
 
