@@ -50,17 +50,36 @@ def main():
     print(f"f(x)=a1+a2*X, Fx(1)= {I:.7f}")
     plot(x, y, v, 2)
 
-     # Atividade 3
+    # Atividade 3
     print("-- Atividade 3 --")
 
     x = np.array([0.01, 1.02, 2.04, 2.95,3.55], dtype=float)
     y = np.array([1.99, 4.55, 7.20, 9.51,10.82], dtype=float)
-    v = lambda x: np.column_stack((np.ones(len(x)), x))
+    v = lambda x: np.column_stack((np.ones(len(x)), x,x**2))
 
     A = regressao(x, y, v)
 
     print(A)
     plot(x, y, v, 3)
+
+    # Atividade 4
+    print("-- Atividade 4 a) --")
+
+    x = np.array([0.0, 0.1, 0.2, 0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0], dtype=float)
+    y = np.array([31.0, 35.0, 37.0, 33.0,28.0,20.0,16.0,15.0,18.0,23.0,31.0], dtype=float)
+    v = lambda x: np.column_stack((np.ones(len(x)), np.sin(2*np.pi*x),np.cos(2*np.pi*x)))
+
+    A = regressao(x, y, v)
+
+    print(A)
+    plot(x, y, v, 41)
+    
+    print("-- Atividade 4 b) --")
+    v = lambda x: np.column_stack((np.ones(len(x)),x,x**2,x**3))
+
+    A = regressao(x, y, v)
+    print(A)
+    plot(x, y, v, 42)
 
 if __name__ == "__main__":
     main()
