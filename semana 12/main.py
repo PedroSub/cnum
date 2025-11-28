@@ -7,6 +7,49 @@ from algoritmos import (
     simpson,
     integral,
 )
+def integral_composta_n(metodo, f, a, b, N):
+    
+    if metodo == medio:
+
+        M = N
+        h = (b - a) / M
+        
+        s = 0.0
+        for i in range(M):
+            x_i = a + i * h
+            s += h * f(x_i + h / 2)
+        return s
+    
+
+    M = N - 1
+    h = (b - a) / M
+    
+    if metodo == trapezio:
+
+        s = f(a) + f(b)
+        for i in range(1, M):
+            x_i = a + i * h
+            s += 2 * f(x_i)
+        return s * h / 2
+    
+    elif metodo == simpson:
+
+        if M % 2 != 0:
+            print(f"Aviso: A regra de Simpson composta requer um número par de subintervalos. N={N} (M={M})")
+            return 0.0
+            
+        s = f(a) + f(b)
+        for i in range(1, M):
+            x_i = a + i * h
+            if i % 2 == 0:
+                s += 2 * f(x_i)
+            else:
+                s += 4 * f(x_i)
+        return s * h / 3
+    
+    else:
+        return 0.0
+
 
 
 def main():
@@ -93,16 +136,14 @@ def main():
     a = 2
     b = 5
     print("f(x) = e^(4-x^2)")
-    n = np.array([3.0, 5.0 ,7.0 ,9.0])
+    f = lambda x: np.exp(4-(x**2))
+    n = np.array([3, 5 ,7 ,9])
     for inter in n:
-        h=((b-a)/inter)
-        s=h-1
-        f = lambda x: np.exp(4-(x**2))
-        r = integral(medio, f, a, b,h)
+        r = integral_composta_n(medio,f, a, b, inter)
         print(f"Ponto medio = {r:.8}")
-        r = integral(trapezio, f, a, b,h)
+        r = integral_composta_n(trapezio,f, a, b, inter)
         print(f"Trapezio = {r:.8}")
-        r= integral(simpson, f,  a, b,h)
+        r= integral_composta_n(simpson,f, a, b, inter)
         print(f"Simpson = {r:.8}")
     
     

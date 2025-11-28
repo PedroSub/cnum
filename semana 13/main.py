@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
 from scipy.differentiate import derivative
+from scipy.integrate import quad
 
 from interpolacaoc import (
     newton,
@@ -10,6 +11,13 @@ from interpolacaoc import (
 )
 from regressaoc import regressao
 from derivacaoc import dp, dr, dc
+
+from integracaoc import (
+    medio,
+    trapezio,
+    simpson,
+    integral,
+)
 
 
 def ploti(x, y, num_img=1):
@@ -200,6 +208,28 @@ def main():
     f=lambda x: A[0]+ x*A[1]+x**2*A[2]+x**3*A[3]
     Vl=0.1*dr(f,0.5,1e-12)+5*f(0.5) 
     print("V(0.5)=", Vl)
+
+    # Atividade 8
+    print("-- Atividade 8 --")  
+    a=0
+    raio = np.array([1.25, 2.55, 3.15, 3.95], dtype=float)
+    print("P(x) = 2*Pi*r*3(1-r/4)^(1/7)")
+    f = lambda x: 2*np.pi*x*3*((1-x/4)**(1/7))
+    for b in raio:
+        r = integral(medio, f, a, b)
+        print(f"Ponto medio = {r:.8}")
+
+    # Atividade 9
+    print("-- Atividade 9 --")  
+    for b in raio:
+        r = integral(trapezio, f, a, b)
+        print(f"Trapezio = {r:.8}")
+
+    # Atividade 10
+    print("-- Atividade 10 --")  
+    for b in raio:
+        r = integral(simpson, f, a, b)
+        print(f"Simpson = {r:.8}")
 
 
 if __name__ == "__main__":
